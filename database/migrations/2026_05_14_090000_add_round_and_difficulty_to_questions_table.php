@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('questions', function (Blueprint $table): void {
-            $table->dropUnique('questions_category_id_number_unique');
+            $table->dropUnique(['category_id', 'number']);
             $table->string('round', 20)->default('qualification')->after('category_id');
             $table->string('difficulty', 20)->default('easy')->after('number');
             $table->unique(['category_id', 'round', 'number']);
@@ -19,7 +19,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('questions', function (Blueprint $table): void {
-            $table->dropUnique('questions_category_id_round_number_unique');
+            $table->dropUnique(['category_id', 'round', 'number']);
             $table->dropColumn(['round', 'difficulty']);
             $table->unique(['category_id', 'number']);
         });
