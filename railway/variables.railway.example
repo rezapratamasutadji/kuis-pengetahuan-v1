@@ -1,0 +1,22 @@
+APP_NAME="Kuis Cakrawala"
+APP_ENV=production
+APP_DEBUG=false
+APP_KEY=base64:ISI_DENGAN_APP_KEY_DARI_PHP_ARTISAN_KEY_GENERATE_SHOW
+APP_URL=https://GANTI_DENGAN_DOMAIN_RAILWAY.up.railway.app
+
+LOG_CHANNEL=stderr
+LOG_LEVEL=info
+
+DB_CONNECTION=mysql
+DB_URL=${{MySQL.MYSQL_URL}}
+
+SESSION_DRIVER=file
+CACHE_STORE=file
+QUEUE_CONNECTION=sync
+FILESYSTEM_DISK=local
+
+RAILPACK_PHP_EXTENSIONS=intl,zip
+RAILPACK_SKIP_MIGRATIONS=true
+
+# Ubah ke true hanya saat deploy pertama jika ingin Railway menjalankan seeder.
+RUN_DB_SEED=false

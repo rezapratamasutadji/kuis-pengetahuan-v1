@@ -82,71 +82,35 @@ User admin bisa dibuat atau diubah dari seeder / artisan sesuai kebutuhan projec
 
 ## Deploy ke Railway
 
-Panduan ini mengikuti dokumentasi resmi Railway untuk Laravel:
+Panduan ringkas Railway ada di:
 
-- Railway Laravel Guide: https://docs.railway.com/guides/laravel
-- Railway Deployments: https://docs.railway.com/deployments/reference
+- [railway/DEPLOY.md](railway/DEPLOY.md)
+- [railway/variables.railway.example](railway/variables.railway.example)
 
-### Arsitektur yang disarankan
+Ringkasnya:
 
-- 1 service Laravel app
-- 1 service MySQL Railway
+1. Deploy repo ini ke Railway.
+2. Tambahkan service `MySQL`.
+3. Isi variables memakai template `railway/variables.railway.example`.
+4. Isi `Pre-deploy Command` dengan:
 
-SQLite cocok untuk lokal, tetapi untuk Railway lebih aman memakai MySQL agar data persisten dan lebih stabil untuk Filament.
+```bash
+sh ./railway/init-app.sh
+```
 
-### Langkah singkat
-
-1. Push project ke GitHub.
-2. Buat project baru di Railway.
-3. Pilih `Deploy from GitHub repo`.
-4. Tambahkan service `MySQL`.
-5. Pada service Laravel, isi environment variables utama:
+5. Saat deploy pertama saja, set:
 
 ```env
-APP_NAME="Kuis Cakrawala"
-APP_ENV=production
-APP_DEBUG=false
-APP_URL=https://domain-kamu.up.railway.app
-APP_KEY=hasil_dari_php_artisan_key_generate_show
-
-LOG_CHANNEL=stderr
-LOG_LEVEL=info
-
-DB_CONNECTION=mysql
-DB_URL=${{MySQL.MYSQL_URL}}
-
-SESSION_DRIVER=file
-CACHE_STORE=file
-QUEUE_CONNECTION=sync
+RUN_DB_SEED=true
 ```
 
-6. Di Railway, isi `Custom Build Command` dengan:
+6. Setelah data awal masuk, kembalikan:
 
-```bash
-npm run build
+```env
+RUN_DB_SEED=false
 ```
 
-7. Isi `Pre-Deploy Command` dengan:
-
-```bash
-chmod +x ./railway/init-app.sh && sh ./railway/init-app.sh
-```
-
-Script tersebut ada di [railway/init-app.sh](railway/init-app.sh) dan akan:
-
-- menjalankan migrasi
-- cache konfigurasi
-- cache view
-
-### Seed data awal
-
-Jalankan sekali saja setelah deploy pertama:
-
-```bash
-php artisan db:seed --force
-```
-
-Jangan masukkan `db:seed` ke pre-deploy default kalau data nantinya akan dikelola lewat Filament.
+Ini membuat project lebih aman untuk production karena deploy berikutnya tidak akan mengulang seed dan menimpa data Filament.
 
 ## Struktur Penting
 
