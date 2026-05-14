@@ -9,6 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('questions', function (Blueprint $table): void {
+            $table->index('category_id');
             $table->dropUnique(['category_id', 'number']);
             $table->string('round', 20)->default('qualification')->after('category_id');
             $table->string('difficulty', 20)->default('easy')->after('number');
