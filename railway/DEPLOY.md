@@ -7,6 +7,12 @@ Project ini sudah dipersiapkan untuk Railway. Supaya deploy stabil dan perubahan
 1. Satu service app dari repo GitHub ini
 2. Satu service `MySQL` di Railway
 3. Variables dari file `railway/variables.railway.example`
+4. Build command:
+
+```bash
+sh ./railway/build-app.sh
+```
+
 4. Pre-deploy command:
 
 ```bash
@@ -19,20 +25,26 @@ sh ./railway/init-app.sh
 2. Buat project baru di Railway dari repo GitHub.
 3. Tambahkan service `MySQL`.
 4. Buka service app lalu isi variables memakai template `railway/variables.railway.example`.
-5. Di service app, isi `Pre-deploy Command` dengan:
+5. Di service app, isi `Build Command` dengan:
+
+```bash
+sh ./railway/build-app.sh
+```
+
+6. Di service app, isi `Pre-deploy Command` dengan:
 
 ```bash
 sh ./railway/init-app.sh
 ```
 
-6. Deploy.
-7. Jika deploy pertama dan kamu ingin data kategori, peserta, dan soal langsung masuk, set:
+7. Deploy.
+8. Jika deploy pertama dan kamu ingin data kategori, peserta, dan soal langsung masuk, set:
 
 ```env
 RUN_DB_SEED=true
 ```
 
-8. Setelah deploy pertama sukses, ubah lagi:
+9. Setelah deploy pertama sukses, ubah lagi:
 
 ```env
 RUN_DB_SEED=false
@@ -75,3 +87,11 @@ Pastikan service database memang bernama `MySQL` di Railway.
 - nomor soal muncul
 - modal soal bekerja
 - `/admin` bisa diakses
+
+## Jika halaman putih atau kosong
+
+Penyebab paling umum adalah asset frontend belum dibangun saat deploy. Pastikan build log Railway menampilkan `vite build`, dan service app memang memakai build command:
+
+```bash
+sh ./railway/build-app.sh
+```

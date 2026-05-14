@@ -98,13 +98,19 @@ Ringkasnya:
 sh ./railway/init-app.sh
 ```
 
-5. Saat deploy pertama saja, set:
+5. Isi `Build Command` dengan:
+
+```bash
+sh ./railway/build-app.sh
+```
+
+6. Saat deploy pertama saja, set:
 
 ```env
 RUN_DB_SEED=true
 ```
 
-6. Setelah data awal masuk, kembalikan:
+7. Setelah data awal masuk, kembalikan:
 
 ```env
 RUN_DB_SEED=false
